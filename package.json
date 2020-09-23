@@ -1,0 +1,16 @@
+{
+  "name": "page-generator-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "sass:watch": "sass --watch sass:css",
+    "sass:compile": "sass sass:css",
+    "sass:compile-min": "sass sass:css --style compressed"
+  },
+  "author": "Marcin Wojtach",
+  "license": "MIT",
+  "dependencies": {
+    "sass": "^1.23.3"
+  }
+}

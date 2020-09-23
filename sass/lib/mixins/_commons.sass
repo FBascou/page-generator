@@ -1,0 +1,60 @@
+=size ($width, $height: $width)
+    width: $width
+    height: $height
+
+=text-center-inline ($height)
+    height: $height
+    line-height: $height
+
+
+=opacity ($opacity)
+    opacity: $opacity
+    $opacity-ie: $opacity * 100
+    filter: alpha(opacity = $opacity-ie) //IE8
+
+
+=user-select ($value)
+    user-select: $value
+
+
+=placeholder
+    &::-webkit-input-placeholder
+        @content
+
+    &:-moz-placeholder
+        @content
+
+    &::-moz-placeholder
+        @content
+
+    &:-ms-input-placeholder
+        @content
+
+=background ($color: false, $image: false, $repeat: no-repeat, $position: 0 0, $size: false)
+    @if $color
+        background-color: $color
+
+    @if $image
+        background-image: image-url($image)
+
+    @if $repeat
+        background-repeat: $repeat
+
+    @if $position
+        background-position: $position
+
+    @if $size
+        background-size: $size
+
+=overflow-scrolling ($value: touch)
+    -webkit-overflow-scrolling: $value
+
+@mixin linear-gradient($direction, $color-stops...)
+    // Direction has been omitted and happens to be a color-stop
+    @if is-direction($direction) == false
+        $color-stops: $direction, $color-stops
+        $direction: 180deg
+
+    //background: nth(nth($color-stops, 1), 1)
+    background: -webkit-linear-gradient(legacy-direction($direction), $color-stops)
+    background: linear-gradient($direction, $color-stops)

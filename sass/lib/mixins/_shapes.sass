@@ -1,0 +1,56 @@
+=square($size)
+    width: $size
+    height: $size
+
+=circle($size, $display: inline-block)
+    display: $display
+    +square($size)
+    +border-radius(50%)
+
+// Triangle: http://www.sitepoint.com/sass-mixin-css-triangles/
+=triangle($direction, $size, $color, $position: false)
+    $direction: if(function-exists("to-lower-case") == true, to-lower-case($direction), $direction)
+
+    @if not index(top right bottom left, $direction)
+        @warn "Direction must be one of `top`, `right`, `bottom` or `left`; currently `#{$direction}`."
+
+    @else
+        +size(0)
+        content: ''
+        z-index: 2
+
+        @if ($position)
+            +absolute($position)
+
+        /* Core stuff */
+
+        border-#{opposite-direction($direction)}: $size * 1.5 solid $color
+        $perpendicular-border: $size solid transparent
+
+        @if ($direction == top or $direction == bottom)
+            border-left:   $perpendicular-border
+            border-right:  $perpendicular-border
+
+
+        @else if ($direction == right or $direction == left)
+            border-bottom: $perpendicular-border
+            border-top:    $perpendicular-border
+
+//=triangle($direction, $color: currentcolor, $size: 1em)
+//    @if not index(top right bottom left, $direction)
+//        @error "Direction must be either `top`, `right`, `bottom` or `left`."
+//
+//    width: 0
+//    height: 0
+//    content: ''
+//    z-index: 2
+//    border-#{opposite-position($direction)}: ($size * 1.5) solid $color
+//
+//    $perpendicular-borders: $size solid transparent
+//
+//    @if $direction == top or $direction == bottom
+//        border-left:   $perpendicular-borders
+//        border-right:  $perpendicular-borders
+//    @else if $direction == right or $direction == left
+//        border-bottom: $perpendicular-borders
+//        border-top:    $perpendicular-borders
